@@ -1,8 +1,13 @@
+import { ReactComponent as TrashIcon } from "../assets/icon-trash.svg";
+import { ReactComponent as CheckedIcon } from "../assets/icon-checked.svg";
+import Task from "../types/Task";
+import { useContext } from "react";
+import { AppContext } from "../AppContext";
 import styled, { keyframes } from "styled-components";
-import checkedIcon from "../../assets/icon-checked.svg";
+import checkedIcon from "../assets/icon-checked.svg";
 
-type Props = {
-  done: boolean;
+type TaskItemProps = {
+  task: Task;
 };
 
 const fadeInDown = keyframes`
@@ -100,3 +105,35 @@ export const TrashButton = styled.button`
     }
   }
 `;
+
+
+const TaskItem = ({ task }: TaskItemProps) => {
+  const { handleTaskChange, handleTaskDelete } = useContext(AppContext);
+
+  return (
+    <Container done={task.done}>
+      <label>
+        <InputCheckbox
+          type="checkbox"
+          checked={task.done}
+          onChange={(e) => handleTaskChange(task.id, e.target.checked)}
+        />
+        <CustomCheckbox done={task.done}>
+          {task.done && (
+            <CustomCheckboxChecked>
+              <CheckedIcon />
+            </CustomCheckboxChecked>
+          )}
+        </CustomCheckbox>
+      </label>
+
+      <TaskName>{task.name}</TaskName>
+
+      <TrashButton onClick={() => handleTaskDelete(task.id)}>
+        <TrashIcon />
+      </TrashButton>
+    </Container>
+  );
+};
+
+export default TaskItem;

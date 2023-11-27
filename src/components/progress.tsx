@@ -1,10 +1,14 @@
+import { useContext, useEffect, useState } from "react";
+import { AppContext } from "../AppContext";
+import Title from "./title";
 import styled, { keyframes } from "styled-components";
+import imgUrl from "../assets/img-trophy-min.png";
 
 type Props = {
   progressBarValue: number;
 };
 
-export const Container = styled.div`
+const Container = styled.div`
   max-width: 520px;
   grid-column: 2;
   grid-row: 1;
@@ -27,14 +31,14 @@ export const Container = styled.div`
   }
 `;
 
-export const ProgressBar = styled.div`
+const ProgressBar = styled.div`
   width: 100%;
   height: 4px;
   background: #282e4f;
   border-radius: 2px;
 `;
 
-export const ProgressBarFill = styled.div<Props>`
+const ProgressBarFill = styled.div<Props>`
   width: 100%;
   height: 4px;
   border-radius: 2px;
@@ -44,7 +48,7 @@ export const ProgressBarFill = styled.div<Props>`
   transform: translateX(${(props) => `-${100 - props.progressBarValue}%`});
 `;
 
-export const ProgressBarValues = styled.div`
+const ProgressBarValues = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -91,3 +95,33 @@ export const TaskCompletedMessage = styled.div<Props>`
     color: #fff;
   }
 `;
+
+
+const Progress = () => {
+  const { progressBarValue } = useContext(AppContext);
+
+  return (
+    <Container>
+      <Title iconName="chart" text="Progresso" />
+
+      <ProgressBar>
+        <ProgressBarFill progressBarValue={progressBarValue} />
+      </ProgressBar>
+
+      <ProgressBarValues>
+        <span>0%</span>
+        <span>50%</span>
+        <span>100%</span>
+      </ProgressBarValues>
+
+      {progressBarValue === 100 && (
+        <TaskCompletedMessage progressBarValue={progressBarValue}>
+          <img src={imgUrl} alt="Troféu" width="40" height="40" />
+          <span>Parabéns! Você concluiu todas as tarefas de hoje!</span>
+        </TaskCompletedMessage>
+      )}
+    </Container>
+  );
+};
+
+export default Progress;
