@@ -1,8 +1,8 @@
-import Title from "./title";
 import { ReactComponent as AddIcon } from "../assets/icon-add.svg";
 import { SyntheticEvent, useContext, useState } from "react";
 import { AppContext } from "../AppContext";
 import styled from "styled-components";
+import {AllMessage as Text } from "../../App"
 
 type Props = {
   error: boolean;
@@ -70,6 +70,33 @@ const AddButton = styled.button<Props>`
   align-items: center;
 `;
 
+const TitleContainer = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 16px;
+`;
+
+const Titlediv = styled.h2`
+  font-family: "Montserrat";
+  font-size: 1.5rem;
+  line-height: 135%;
+  font-weight: 400;
+  color: #fff;
+`;
+
+const Icon = styled.div`
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(180deg, #151a37 0%, rgba(21, 26, 55, 0) 100%);
+  border: 1px solid #24293f;
+  border-radius: 12px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const CreateNewTask = () => {
   const [inputValue, setInputValue] = useState("");
   const [error, setError] = useState(false);
@@ -89,15 +116,28 @@ const CreateNewTask = () => {
     setInputValue(target.value);
   };
 
+  const Title = () => {
+    const imgUrl = new URL(`/src/assets/icon-pencil.svg`, import.meta.url).href;
+
+    return (
+      <TitleContainer>
+        <Icon>
+          <img src={imgUrl} width="24" height="24" alt="Pencil" />
+        </Icon>
+        <Titlediv>{ Text.newTask }</Titlediv>
+      </TitleContainer>
+    );
+  };
+
   return (
     <Containerdiv>
-      <Title iconName="pencil" text="Criar nova tarefa" />
+      <Title/>
 
       <form onSubmit={handleSubmit}>
         <InputContainer>
           <InputText
             type="text"
-            placeholder="Nome da tarefa"
+            placeholder={Text.taskName}
             value={inputValue}
             onChange={handleChange}
             error={error}

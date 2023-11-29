@@ -3,6 +3,7 @@ import { AppContext } from "../AppContext";
 import TaskItem from "./task-item";
 import Title from "./title";
 import styled from "styled-components";
+import { AllMessage as Text } from "../../App";
 
 type Props = {
   progressBarValue: number;
@@ -51,11 +52,11 @@ const TodayTasks = () => {
 
   return (
     <Container progressBarValue={progressBarValue}>
-      <Title iconName="list" text="Tarefas de hoje" />
+      <Title iconName="list" text={Text.todayTask} />
 
       {progressBarValue === 100 || taskList.length === 0 ? (
         <TodayTasksMessage>
-          Você não tem tarefas disponíveis
+          {Text.noMore}
         </TodayTasksMessage>
       ) : (
         <TaskList>

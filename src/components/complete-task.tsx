@@ -3,6 +3,7 @@ import { AppContext } from "../AppContext";
 import TaskItem from "./task-item";
 import Title from "./title";
 import styled from "styled-components";
+import { AllMessage as Text } from "../../App";
 
 const Container = styled.div`
   max-width: 520px;
@@ -27,7 +28,7 @@ const CompletedTasks = () => {
 
   return (
     <Container>
-      <Title iconName="completed" text="Tarefas concluídas" />
+      <Title iconName="completed" text={Text.complete} />
 
       <TaskList>
         {taskList.map(

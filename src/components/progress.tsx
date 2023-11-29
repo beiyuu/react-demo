@@ -3,6 +3,7 @@ import { AppContext } from "../AppContext";
 import Title from "./title";
 import styled, { keyframes } from "styled-components";
 import imgUrl from "../assets/img-trophy-min.png";
+import { AllMessage as Text } from "../../App";
 
 type Props = {
   progressBarValue: number;
@@ -102,7 +103,7 @@ const Progress = () => {
 
   return (
     <Container>
-      <Title iconName="chart" text="Progresso" />
+      <Title iconName="chart" text={Text.progress} />
 
       <ProgressBar>
         <ProgressBarFill progressBarValue={progressBarValue} />
@@ -117,7 +118,7 @@ const Progress = () => {
       {progressBarValue === 100 && (
         <TaskCompletedMessage progressBarValue={progressBarValue}>
           <img src={imgUrl} alt="Troféu" width="40" height="40" />
-          <span>Parabéns! Você concluiu todas as tarefas de hoje!</span>
+          <span>{Text.congra}</span>
         </TaskCompletedMessage>
       )}
     </Container>
